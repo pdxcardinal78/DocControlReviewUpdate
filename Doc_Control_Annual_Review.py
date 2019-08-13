@@ -4,10 +4,11 @@ from tkinter import filedialog, messagebox
 from tkinter import ttk
 import pandas as pd
 
-x = pyautogui.size().width
-y = pyautogui.size().height
 
 def windowsizecheck():
+    x = pyautogui.size().width
+    y = pyautogui.size().height
+    print(x, y)
     if x == 1920 and y == 1080:
         print('All Good')
     else:
@@ -41,7 +42,7 @@ def deletetext():
     pyautogui.typewrite(['backspace', 'backspace', 'backspace', 'backspace', 'backspace', 'backspace','backspace', 'backspace', 'backspace', 'backspace', 'backspace', 'backspace'])
 
 def DocReviewSO(doc, date):
-    time.sleep(5)
+    time.sleep(.5)
 
     moveto(433, 206) # Move to Record Text Box
     click(1) # Place cursor at text box
@@ -68,13 +69,13 @@ def close_window():
 
 #Program Loop Through Files
 def uniLoop():
-    #df = pd.read_csv(myfile)
+    df = pd.read_csv(myfile)
     count = 0
-    DocReviewSO('ANO-W-1592', '5/20/2019')
-    #for index, row in df.iterrows():
-        #print (row['Doc_Num'], row['Approval_Date'])
-        #count += 1
-        #DocReviewSO(row['Doc_Num'], row['Approval_Date'])
+    #DocReviewSO('ANO-W-1592', '5/20/2019')  # UnComment this section if running a single record
+    for index, row in df.iterrows(): # Use loop if running multiple records.
+        print (row['Doc_Num'], row['Approval_Date'])
+        count += 1
+        DocReviewSO(row['Doc_Num'], row['Approval_Date'])
 
     messagebox.showinfo('Message', '{} records updated'.format(count))
 
